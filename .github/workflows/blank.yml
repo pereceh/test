@@ -1,0 +1,35 @@
+  - name: Tailscale
+    uses: tailscale/github-action@v1
+    with:
+      authkey: ${{ secrets.tskey-auth-kEvbVA4CNTRL-maftMKqtpobDLJBP3jESwbveU9uk4shc }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
+
+
+
+
+
+
