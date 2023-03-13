@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     && a2enmod rewrite
 
 # Expose port
-EXPOSE 443
+EXPOSE 80
 
 # Define the entry point for the container
 CMD ["apache2-foreground"]
