@@ -17,7 +17,6 @@ RUN apt-get update && apt-get install -y \
     && a2enmod rewrite
 
 # Expose port
-EXPOSE 80
 EXPOSE 443
 
 # Define the entry point for the container
