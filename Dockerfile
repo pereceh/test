@@ -45,6 +45,8 @@ RUN pecl install imagick ssh2-1.3.1 \
     && docker-php-ext-enable imagick ssh2
 RUN a2enmod rewrite
 COPY . /var/www/html/
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
 CMD sed -i "s/Listen 80/Listen ${PORT:-80}/g" /etc/apache2/ports.conf && \
     sed -i "s/<VirtualHost \*:80>/<VirtualHost \*:${PORT:-80}>/g" /etc/apache2/sites-available/000-default.conf && \
     apache2-foreground
