@@ -1,23 +1,64 @@
-# Use the official PHP image as the base image
-FROM php:7.4-apache
+FROM php:8.1-apache
 
-# Copy the application files into the container
-COPY . /var/www/html
-
-# Set the working directory in the container
-WORKDIR /var/www/html
-
-# Install necessary PHP extensions
 RUN apt-get update && apt-get install -y \
-    libicu-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
     libzip-dev \
-    && docker-php-ext-install \
-    intl \
+    libicu-dev \
+    libonig-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    libpq-dev \
+    libmagickwand-dev \
+    libssh2-1-dev \
     zip \
-    && a2enmod rewrite
+    unzip \
+    git \
+    curl \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Expose port
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install -j$(nproc) \
+    bcmath \
+    calendar \
+    ctype \
+    curl \
+    dom \
+    fileinfo \
+    ftp \
+    gd \
+    gettext \
+    iconv \
+    intl \
+    mbstring \
+    mysqli \
+    opcache \
+    pdo \
+    pdo_mysql \
+    pdo_pgsql \
+    pgsql \
+    phar \
+    posix \
+    session \
+    shmop \
+    simplexml \
+    soap \
+    sockets \
+    sysvmsg \
+    sysvsem \
+    sysvshm \
+    tokenizer \
+    xml \
+    xmlreader \
+    xmlwriter \
+    xsl \
+    zip
+
+RUN pecl install imagick ssh2-1.3.1 \
+    && docker-php-ext-enable imagick ssh2
+RUN a2enmod rewrite
+COPY . /var/www/html/
 EXPOSE 80
 
-# Define the entry point for the container
-CMD ["apache2-foreground"]
